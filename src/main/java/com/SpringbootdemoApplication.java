@@ -2,6 +2,7 @@ package com;
 
 import com.dao.DepartmentRepository;
 import com.dao.RolesRepository;
+import com.dao.UserRedis;
 import com.dao.UserRepository;
 import com.entity.User;
 import org.slf4j.Logger;
@@ -29,6 +30,8 @@ public class SpringbootdemoApplication {
 	DepartmentRepository departmentRepository;
 	@Autowired
 	RolesRepository roleRepository;
+	@Autowired
+	UserRedis redis ;
 
 	@RequestMapping("/")
 	String hello(){
@@ -39,6 +42,11 @@ public class SpringbootdemoApplication {
 			logger.info("====user==== user name:{}, department name:{}, role name:{}",
 					user.getName(), user.getDepartment().getName(), user.getRoles().get(0).getName());
 		}
+		User u = new User();
+		u.setId(1);
+		u.setName("aa");
+		redis.add("aa",1L,u);
+		redis.get("aa");
 		return "hello aa";
 	}
 
